@@ -17,6 +17,7 @@ import (
 	"github.com/stormdynamics/swerpctask/src/rpchttpjson"
 	"github.com/stormdynamics/swerpctask/src/rpcapi.v1"
 	"github.com/stormdynamics/swerpctask/src/migration"
+	"github.com/stormdynamics/swerpctask/src/healthcheck"
 )
 
 func main() {
@@ -39,6 +40,8 @@ func main() {
 	// используется самый простой стандартый ServeMux
 	// можно заменить на любой другой HTTP роутер (мультиплексор)
 	mux.Handle(cfg.AppApiPath(), rpchttpjson.NewRpcHttpJson(api))
+	
+	mux.Handle("/health-check", healthcheck.NewHealthCheck(db))
 
 	srv := http.Server{
 		Addr:    cfg.AppHostPort(),

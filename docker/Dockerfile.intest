@@ -1,0 +1,11 @@
+FROM golang:1.14-alpine
+
+# установка git для нормальной работы команды go mod (go get)
+RUN set -ex; \
+    apk update; \
+    apk add --no-cache git
+
+WORKDIR /go/src/github.com/stormdynamics/swerpctask/
+
+# выполнение миграций и запуск теста
+CMD ["sh","-c", "go run main.go migrate up && go test -tags integration -v"]

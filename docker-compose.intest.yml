@@ -1,0 +1,38 @@
+version: '3'
+
+networks:
+  swetask-inet-intest:
+    driver: bridge
+
+services:
+
+  swetask:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.intest
+    volumes:
+      - $PWD:/go/src/github.com/stormdynamics/swerpctask
+    depends_on:
+      - database
+    environment:
+      DB_HOST: database
+      DB_PORT: 3306
+      DB_USER: swetask
+      DB_PASS: ksatews
+      DB_NAME: swetask
+    networks:
+      - swetask-inet-intest
+
+  database:
+    image: mariadb:10.5.5
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: swetask
+      MYSQL_DATABASE: swetask
+      MYSQL_USER: swetask
+      MYSQL_PASSWORD: ksatews
+    networks:
+      - swetask-inet-intest

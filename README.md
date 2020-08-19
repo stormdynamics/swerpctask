@@ -9,8 +9,9 @@
 
 ```json
 --> {"jsonrpc": "2.0", "method": "Api.GetNumber", "params": [], "id": 1}
-<-- {"jsonrpc": "2.0", "result": 0, "id": 1}
+<-- {"result": 0, "id": 1}
 ```
+
 ### Список API функций
 
 - `Api.GetNumber` - Текущее значение счетчика

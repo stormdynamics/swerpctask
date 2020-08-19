@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+  swetask-inet:
+    driver: bridge
+
+services:
+
+  swetask:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8080
+      DB_HOST: database
+      DB_PORT: 3306
+      DB_USER: swetask
+      DB_PASS: ksatews
+      DB_NAME: swetask
+    restart: on-failure
+    networks:
+      - swetask-inet
+
+  database:
+    image: mariadb:10.5.5
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: swetask
+      MYSQL_DATABASE: swetask
+      MYSQL_USER: swetask
+      MYSQL_PASSWORD: ksatews 
+    restart: on-failure
+    networks:
+      - swetask-inet

@@ -21,7 +21,7 @@ func (self *HealthCheck) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	if err := self.db.Ping(); err != nil {
-		fmt.Fprintf(w, `{"db":true, "db_error":"%s", "app":true}`,
+		fmt.Fprintf(w, `{"db":false, "db_error":"%s", "app":true}`,
 			escapeJsonStr(err.Error()))
 	} else {
 		fmt.Fprint(w, `{"db":true, "app":true}`)

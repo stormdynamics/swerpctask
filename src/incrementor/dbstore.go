@@ -87,8 +87,11 @@ func (self *dbStore) setInt(key string, val int) error {
 	}
 
 	// количество затронутых записей должно быть равным единице
-	if count != 1 { 
-		return errMultiAff
+	// в режиме транзакции мы не можем использовать значение RowsAffected
+	if self.tx == nil {
+		if count != 1 { 
+			return errMultiAff
+		}
 	}
 
 	return nil

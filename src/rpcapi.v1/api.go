@@ -15,8 +15,8 @@ type Api struct {
 // Структура для получения настроек инкрементатора
 // в методе SetSettings
 type ApiSettings struct {
-	maxval int `json:"max_val"`
-	incval int `json:"inc_val"`
+	Maxval int `json:"max_val"`
+	Incval int `json:"inc_val"`
 }
 
 // RPC API метод получение текущего значения счетчика
@@ -42,7 +42,7 @@ func (self *Api) SetIncVal(incval *int, reply *int) error {
 
 // RPC API метод установки настроек приложения
 func (self *Api) SetSettings(settings *ApiSettings, reply *int) error {
-	return self.incr.SetSettings(settings.maxval, settings.incval)
+	return self.incr.SetSettings(settings.Maxval, settings.Incval)
 }
 
 // Создание экземпляра структуры RPC API

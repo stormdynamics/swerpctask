@@ -16,6 +16,7 @@ services:
       - DB_HOST=database
       - DB_USER=swetask
       - DB_PASS=ksatews
+      - CGO_ENABLED=0
     depends_on:
       - database
     ports:

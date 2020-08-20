@@ -20,6 +20,7 @@ services:
       - DB_USER=swetask
       - DB_PASS=ksatews
       - DB_NAME=swetask
+      - CGO_ENABLED=0
     restart: on-failure
     networks:
       - swetask-inet-intest

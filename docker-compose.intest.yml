@@ -15,11 +15,12 @@ services:
     depends_on:
       - database
     environment:
-      DB_HOST: database
-      DB_PORT: 3306
-      DB_USER: swetask
-      DB_PASS: ksatews
-      DB_NAME: swetask
+      - DB_HOST=database
+      - DB_PORT=3306
+      - DB_USER=swetask
+      - DB_PASS=ksatews
+      - DB_NAME=swetask
+    restart: on-failure
     networks:
       - swetask-inet-intest
 
@@ -30,9 +31,9 @@ services:
     expose:
       - "3306"
     environment:
-      MYSQL_ROOT_PASSWORD: swetask
-      MYSQL_DATABASE: swetask
-      MYSQL_USER: swetask
-      MYSQL_PASSWORD: ksatews
+      - MYSQL_ROOT_PASSWORD=ksatews
+      - MYSQL_DATABASE=swetask
+      - MYSQL_USER=swetask
+      - MYSQL_PASSWORD=ksatews
     networks:
       - swetask-inet-intest

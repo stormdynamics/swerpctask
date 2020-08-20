@@ -12,9 +12,6 @@ RUN set -ex; \
     go mod download; \
     GOOS=linux go build -o ./swerpctask;
 
-# выполнение миграций
-RUN ./swerpctask migrate up
-
 FROM alpine:latest
 
 # установка корневых сертификатов
@@ -25,8 +22,9 @@ RUN set -ex; \
 
 WORKDIR /opt/
 
-# копируем бинарник приложения в /opt
+# копируем бинарник приложения и миграции в /opt
 COPY --from=swetasksrc /go/src/github.com/stormdynamics/swerpctask/swerpctask .
+COPY --from=swetasksrc /go/src/github.com/stormdynamics/swerpctask/migrations ./migrations
 
 # запуск приложения
-CMD /opt/swerpctask
+CMD /opt/swerpctask migrate up && /opt/swerpctask
